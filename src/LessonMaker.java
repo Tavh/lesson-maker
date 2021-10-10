@@ -7,6 +7,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class LessonMaker {
+    public static final String RED = "\033[0;31m";     // RED
+    public static final String PURPLE = "\033[0;35m";  // PURPLE
+    public static final String RESET = "\033[0m";  // Text Reset
+
     private static final Scanner scanner = new Scanner(System.in);
     private static int exerciseCount = 1;
 
@@ -17,7 +21,8 @@ public class LessonMaker {
         int lessonNumber = scanner.nextInt();
         File lessonDir = new File(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "_jb_" + lecturerName.toLowerCase() + "_lesson_" + stringPrettify(lessonNumber));
         if (!lessonDir.exists()){
-            System.out.println("Making " + lecturerName + "'s lesson " + lessonNumber + " directory");
+            System.out.print("Making " + lecturerName + "'s lesson " + lessonNumber + " directory, ");
+            System.out.println(PURPLE + "don't forget to start recording!" + RESET);
             lessonDir.mkdir();
             System.out.println("Making homework directory");
             new File(lessonDir + "/homework").mkdir();
@@ -29,7 +34,8 @@ public class LessonMaker {
             System.out.print("Please enter the next exercise directory name or 'over' to end lesson: ");
             String input = scanner.next();
             if ("over".equals(input.toLowerCase())) {
-                System.out.println("Ending lesson, please remember to send all files to the students!");
+                System.out.print("Ending lesson, ");
+                System.out.println(RED + "please remember to send all files to the students!" + RESET);
                 scanner.close();
                 return;
             }
